@@ -18,15 +18,6 @@ public class ColorProcessor {
 		int height = img.getHeight();
 		subImgs = new Picture2[(int)((double)width / secSize + 0.5)][(int)((double)height / secSize + 0.5)];
 		this.sectors.add(img);
-//		System.out.println("hacker voice im out");
-
-
-		/*for(int r=height/numSectors; r<height; r+=height/numSectors){
-			for(int c=width/numSectors; c<width; c+=width/numSectors){
-				this.sectors.add(new Picture2(c-width/numSectors, r-height/numSectors));
-				System.out.println("hacker voice im in");
-			}
-		}*/
 	}
 
 
