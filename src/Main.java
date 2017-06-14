@@ -2,6 +2,7 @@ package src;
 import java.awt.Color;
 import java.io.File;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.imageio.*;
@@ -16,6 +17,7 @@ public class Main {
 	JPanel ioPanel;
 	JPanel imgPanel;
 	JFrame frame;
+	JLabel label;
 
     public static final int EMOJI_SIZE = 128;
     public Main(){
@@ -41,7 +43,7 @@ public class Main {
     	}
     	catch(IOException e){}
     	
-    	JLabel label = new JLabel(new ImageIcon(image));
+    	label = new JLabel(new ImageIcon(image));
     	imgPanel.add(label);
     	frame.add(imgPanel, BorderLayout.CENTER);
     	
@@ -70,7 +72,12 @@ public class Main {
 			if (returnVal == JFileChooser.APPROVE_OPTION) {
 	            File file = fc.getSelectedFile();
 	            imgFile = file.toString();
-	            frame.pack();
+	            BufferedImage img = null;
+	            try {
+	                img = ImageIO.read(new File(imgFile));
+	            } catch (IOException c) {
+	            }
+	            label.setIcon(new ImageIcon(img));
 			}
 			imgPanel.setVisible(true);
 		}
