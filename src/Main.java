@@ -189,7 +189,9 @@ public class Main {
         ColorProcessor c1 = new ColorProcessor(new Picture2("test.png"));
         Color x = c.getRectangleColor(0, 0, 1600, 1200);
         Color x1 = c1.getRectangleColor(0, 0, 128, 128);
-        findClosestArrayStyle(x.getRed(), x.getRed(), x.getBlue());
+        System.out.println("summer nights.png's color is " + x.getRed() + " " + x.getGreen() + " " + x.getBlue());
+        findClosestArrayStyle(x.getRed(), x.getGreen(), x.getBlue());
+        System.out.println("test.png's color is " + x1.getRed() + " " + x1.getGreen() + " " + x1.getBlue());
         findClosestArrayStyle(x1.getRed(), x1.getGreen(), x1.getBlue());
     }
 
@@ -197,7 +199,7 @@ public class Main {
     public static void testFindClosest() {
         EmojiTree tree = treeOfEmojis();
         ColorProcessor col = new ColorProcessor(new Picture2("summer nights.png"));
-        Color c = col.getRectangleColor(0, 0, 128, 128);
+        Color c = col.getRectangleColor(0, 0, 1600, 1200);
         EmojiTree closest = tree.findClosest(c.getRed(), c.getGreen(), c.getBlue());
         System.out.println("The average color of 'test.png' is " +
                 c.getRed() + " " + c.getGreen() + " " + c.getBlue());
