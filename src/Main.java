@@ -24,12 +24,12 @@ public class Main {
     	
     	//I/O components
     	this.ioPanel = new JPanel(new GridLayout(1,3));
-    	JButton button1 = new JButton("Load");
-    	JButton button2 = new JButton("Save");
-    	JButton button3 = new JButton("Clear");
-    	ioPanel.add(button1);
-    	ioPanel.add(button2);
-    	ioPanel.add(button3);
+    	JButton loadButton = new JButton("Load");
+    	JButton saveButton = new JButton("Save");
+    	JButton clearButton = new JButton("Clear");
+    	ioPanel.add(loadButton);
+    	ioPanel.add(saveButton);
+    	ioPanel.add(clearButton);
     	frame.add(ioPanel, BorderLayout.NORTH);
     	
     	//Image frame
@@ -48,8 +48,8 @@ public class Main {
     	frame.pack();
     	frame.setVisible(true);
     	
-    	button3.addActionListener(new ClearListener());
-    	button2.addActionListener(new LoadListener());
+    	clearButton.addActionListener(new ClearListener());
+    	loadButton.addActionListener(new LoadListener());
     }
     
 
