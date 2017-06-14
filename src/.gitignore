@@ -4,3 +4,7 @@
 /Pixel2.class
 /MainTest.class
 /Emojifier.class
+/Emojifier$Emoji.class
+/Emojifier$EmojiTree.class
+/Main$ClearListener.class
+/Main$LoadListener.class
