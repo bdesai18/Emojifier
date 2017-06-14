@@ -13,7 +13,8 @@ import javax.swing.JFrame;
 public class Main {
 	
 	String imgFile = "test.png";
-	final JFileChooser fc = new JFileChooser();
+	final JFileChooser fc = new JFileChooser(System.getProperty("user.dir") + "/Emojis");
+	
 	JPanel ioPanel;
 	JPanel imgPanel;
 	JFrame frame;
