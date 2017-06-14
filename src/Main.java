@@ -1,3 +1,4 @@
+package src;
 import java.awt.Color;
 import java.io.File;
 
@@ -9,7 +10,7 @@ public class Main {
         int totR = 0;
         int totG = 0;
         int totB = 0;
-        String start = "Emojis\\whatsapp_emoji_collection_by_lechuck80-d5x39i5\\Emoji Nature\\Emoji Natur-";
+        String start = "Emojis//whatsapp_emoji_collection_by_lechuck80-d5x39i5\\Emoji Nature\\Emoji Natur-";
         for(int i = 1; i <= 65; i++) {
             ColorProcessor c1;
             if(i < 10) {
@@ -28,30 +29,30 @@ public class Main {
     }
 
     public static void testAllEmojis() {
-        String dir = "Emojis\\EmojiOne_3.0_128x128_png";
+        String dir = "Emojis//EmojiOne_3.0_128x128_png";
         File fi = new File(dir);
         File[] imgs = fi.listFiles();
         for (File f:imgs) {
             String s = f.getName();
-            ColorProcessor c = new ColorProcessor(new Picture2(dir + "\\" + s));
+            ColorProcessor c = new ColorProcessor(new Picture2(dir + "//" + s));
             Color x = c.getRectangleColor(0, 0, EMOJI_SIZE, EMOJI_SIZE);
             System.out.println(x.getRed() + " " + x.getGreen() + " " + x.getBlue());
         }
     }
 
     public static EmojiTree treeOfEmojis() {
-        String dir = "Emojis\\EmojiOne_3.0_128x128_png";
+        String dir = "Emojis//EmojiOne_3.0_128x128_png";
         File fi = new File(dir);
         File[] imgs = fi.listFiles();
         String rName = imgs[0].getName();
-        ColorProcessor rProc = new ColorProcessor(new Picture2(dir + "\\" + rName));
+        ColorProcessor rProc = new ColorProcessor(new Picture2(dir + "//" + rName));
         Color rCol = rProc.getRectangleColor(0, 0, EMOJI_SIZE, EMOJI_SIZE);
         EmojiTree root = new EmojiTree(rCol.getRed(), rCol.getGreen(), rCol.getBlue(), rName);
 
         for (int i = 1; i < imgs.length; i++) {
             File f = imgs[i];
             String name = f.getName();
-            ColorProcessor proc = new ColorProcessor(new Picture2(dir + "\\" + name));
+            ColorProcessor proc = new ColorProcessor(new Picture2(dir + "//" + name));
             Color col = proc.getRectangleColor(0, 0, EMOJI_SIZE, EMOJI_SIZE);
             EmojiTree chil = new EmojiTree(col.getRed(), col.getGreen(), col.getBlue(), name);
             root.insert(chil);
@@ -154,11 +155,11 @@ public class Main {
 
     public static Emoji[] arrayOfEmojis() {
         Emoji[] emojis = new Emoji[2427];
-        String dir = "Emojis\\EmojiOne_3.0_128x128_png";
+        String dir = "Emojis//EmojiOne_3.0_128x128_png";
         File fi = new File(dir);
         File[] imgs = fi.listFiles();
         for(int i = 0; i < imgs.length; i++) {
-            ColorProcessor cp = new ColorProcessor(new Picture2(dir + "\\" + imgs[i].getName()));
+            ColorProcessor cp = new ColorProcessor(new Picture2(dir + "//" + imgs[i].getName()));
             Color c = cp.getRectangleColor(0, 0, EMOJI_SIZE, EMOJI_SIZE);
             Emoji e = new Emoji(imgs[i].getName(), c.getRed(), c.getGreen(), c.getBlue());
             emojis[i] = e;
@@ -190,13 +191,12 @@ public class Main {
         Color x1 = c1.getRectangleColor(0, 0, 128, 128);
         findClosestArrayStyle(x.getRed(), x.getRed(), x.getBlue());
         findClosestArrayStyle(x1.getRed(), x1.getGreen(), x1.getBlue());
-
     }
 
 
     public static void testFindClosest() {
         EmojiTree tree = treeOfEmojis();
-        ColorProcessor col = new ColorProcessor(new Picture2("test.png"));
+        ColorProcessor col = new ColorProcessor(new Picture2("summer nights.png"));
         Color c = col.getRectangleColor(0, 0, 128, 128);
         EmojiTree closest = tree.findClosest(c.getRed(), c.getGreen(), c.getBlue());
         System.out.println("The average color of 'test.png' is " +

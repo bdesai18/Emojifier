@@ -1,5 +1,6 @@
 /* Takes images and divides into sectors, returns the average value
  * of the sectors. */
+package src;
 
 import java.util.*;
 import java.awt.*;

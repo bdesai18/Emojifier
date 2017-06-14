@@ -13,6 +13,8 @@
  * @author Tia Newhall
  *
  */
+
+package src;
 public class Pixel2 {
 
     int[] component;

@@ -6,6 +6,7 @@
  * Staring Point Code for Image Processing Project
  * @author Richard Wicentowski and Tia Newhall (2005)
  */
+package src;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
