@@ -150,8 +150,6 @@ public class Main {
                 e.red + " " + e.green + " " + e.blue);
     }
 
-<<<<<<< HEAD
-=======
     public static void testArrayClosest() {
         ColorProcessor c = new ColorProcessor(new Picture2("summer nights.png"));
         ColorProcessor c1 = new ColorProcessor(new Picture2("test.png"));
@@ -176,7 +174,6 @@ public class Main {
                 " with color " + closest.red + " " + closest.green + " " + closest.blue);
     }
 
->>>>>>> 73ca6a65a869a23b0d4243a1fa654d409f24f45c
 	public static void main(String[] args){
   
 	}
