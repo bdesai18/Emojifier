@@ -26,11 +26,14 @@ public class Main {
     	frame.setLayout(new BorderLayout());
     	
     	//I/O components
-    	this.ioPanel = new JPanel(new GridLayout(1,3));
+    	this.ioPanel = new JPanel(new GridLayout(1,4));
     	JButton loadButton = new JButton("Load");
     	JButton saveButton = new JButton("Save");
     	JButton clearButton = new JButton("Clear");
+    	JButton emojifyButton = new JButton("Emojify");
+    	
     	ioPanel.add(loadButton);
+    	ioPanel.add(emojifyButton);
     	ioPanel.add(saveButton);
     	ioPanel.add(clearButton);
     	frame.add(ioPanel, BorderLayout.NORTH);
@@ -76,11 +79,17 @@ public class Main {
 	            BufferedImage img = null;
 	            try {
 	                img = ImageIO.read(new File(imgFile));
-	            } catch (IOException c) {
-	            }
+	            } catch (IOException c) {}
 	            label.setIcon(new ImageIcon(img));
 			}
 			imgPanel.setVisible(true);
+			frame.pack();
+		}
+	}
+	
+	private class EmojiListener implements ActionListener{
+		public void actionPerformed(ActionEvent e){
+			emojify(new BufferedImage(label.getIcon()), 10, 10);
 		}
 	}
 	
