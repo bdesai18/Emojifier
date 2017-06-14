@@ -106,23 +106,4 @@ public class ColorProcessor {
 		return new Color(rTot / totAdd, gTot / totAdd, bTot / totAdd);
 	}
 	
-	public Color getAverageColor(int sector){
-		Picture2 thisSector = sectors.get(0);
-		int width = thisSector.getWidth();
-		int height = thisSector.getHeight();
-		int redBin = 0;
-		int greenBin = 0;
-		int blueBin = 0;
-		Pixel2 p;
-		for(int i=0; i<height-2; i+=2){
-			for(int j=0; j<width-2; j+=2){
-				p = thisSector.getPixel(i, j);
-				redBin += p.getRed();
-				greenBin += p.getGreen();
-				blueBin += p.getBlue();
-			}
-		}
-		System.out.println(5*redBin/(width*height) + " " + 5*greenBin/(width*height) + " " + 5*blueBin/(height*width));
-		return new Color(redBin/(width*height), greenBin/(width*height), blueBin/(width*height));
-	}
 }
