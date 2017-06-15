@@ -59,6 +59,7 @@ public class Main {
     	
     	clearButton.addActionListener(new ClearListener());
     	loadButton.addActionListener(new LoadListener());
+    	emojifyButton.addActionListener(new EmojiListener());
     }
     
 
@@ -93,7 +94,7 @@ public class Main {
 	
 	private class EmojiListener implements ActionListener{
 		public void actionPerformed(ActionEvent e){
-			label.setIcon(new ImageIcon(ImageConstructor.emojify(currPic, 10, 10)));
+			label.setIcon(new ImageIcon(ImageConstructor.emojify(currPic, 8, 8)));
 			frame.pack();
 		}
 	}
