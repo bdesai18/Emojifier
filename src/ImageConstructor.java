@@ -26,9 +26,9 @@ public class ImageConstructor {
                 Picture2 emoji = new Picture2("Emojis//EmojiOne_3.0_128x128_png/" + e);
                 for(int i = 0; i < emoji.getWidth(); i++) {
                     for(int j = 0; j < emoji.getHeight(); j++) {
-                    	Pixel2 p = emoji.getPixel(j, i);
-                    	Color col = new Color(p.getRed(), p.getGreen(), p.getBlue());
-                        b.setRGB(w * emoji.getWidth() + i, h * emoji.getHeight() + i, col.getRGB());
+                        Pixel2 p = emoji.getPixel(j, i);
+                        Color col = new Color(p.getRed(), p.getGreen(), p.getBlue());
+                        b.setRGB(w * emoji.getWidth() + i, h * emoji.getHeight() + j, col.getRGB());
                     }
                 }
             }

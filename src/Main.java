@@ -56,7 +56,8 @@ public class Main {
     	
     	frame.pack();
     	frame.setVisible(true);
-    	
+		frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
+
     	clearButton.addActionListener(new ClearListener());
     	loadButton.addActionListener(new LoadListener());
     	emojifyButton.addActionListener(new EmojiListener());
