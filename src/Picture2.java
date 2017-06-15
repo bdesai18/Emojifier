@@ -45,6 +45,11 @@ public class Picture2 {
         raster = bufferedImage.getRaster();
         imageType = type;
     }
+    
+    public Picture2(BufferedImage b){
+    	bufferedImage = b;
+    	raster = b.getRaster();
+    }
 
     /**
      * Read the image in the file with the given filename

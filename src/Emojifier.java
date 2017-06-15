@@ -7,6 +7,8 @@ import java.io.File;
 public class Emojifier {
 	
 	public static final int EMOJI_SIZE = 128;
+
+	private static Emoji[] emojis;
 	
 	public static EmojiTree treeOfEmojis() {
         String dir = "Emojis//EmojiOne_3.0_128x128_png";
@@ -122,21 +124,23 @@ public class Emojifier {
     }
 
     public static Emoji[] arrayOfEmojis() {
-        Emoji[] emojis = new Emoji[2427];
-        String dir = "Emojis//EmojiOne_3.0_128x128_png";
-        File fi = new File(dir);
-        File[] imgs = fi.listFiles();
-        for(int i = 0; i < imgs.length; i++) {
-            ColorProcessor cp = new ColorProcessor(new Picture2(dir + "//" + imgs[i].getName()));
-            Color c = cp.getRectangleColor(0, 0, EMOJI_SIZE, EMOJI_SIZE);
-            Emoji e = new Emoji(imgs[i].getName(), c.getRed(), c.getGreen(), c.getBlue());
-            emojis[i] = e;
+
+	    if(emojis == null) {
+            emojis = new Emoji[2427];
+            String dir = "Emojis//EmojiOne_3.0_128x128_png";
+            File fi = new File(dir);
+            File[] imgs = fi.listFiles();
+            for(int i = 0; i < imgs.length; i++) {
+                ColorProcessor cp = new ColorProcessor(new Picture2(dir + "//" + imgs[i].getName()));
+                Color c = cp.getRectangleColor(0, 0, EMOJI_SIZE, EMOJI_SIZE);
+                Emoji e = new Emoji(imgs[i].getName(), c.getRed(), c.getGreen(), c.getBlue());
+                emojis[i] = e;
+            }
         }
         return emojis;
-
     }
 
-    public static void findClosestArrayStyle(int r, int g, int b) {
+    public static String findClosestArrayStyle(int r, int g, int b) {
         Emoji[] em = arrayOfEmojis();
         double minD = Double.MAX_VALUE;
         int ind = 0;
@@ -150,6 +154,7 @@ public class Emojifier {
         Emoji e = em[ind];
         System.out.println("The closest emoji is number " + ind + ", with name " + e.name + ", and values " +
                 e.red + " " + e.green + " " + e.blue);
+        return e.name;
     }
 
     public static void testArrayClosest() {

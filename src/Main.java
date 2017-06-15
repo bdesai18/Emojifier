@@ -19,6 +19,8 @@ public class Main {
 	JPanel imgPanel;
 	JFrame frame;
 	JLabel label;
+	
+	BufferedImage currPic;
 
     public static final int EMOJI_SIZE = 128;
     public Main(){
@@ -44,6 +46,7 @@ public class Main {
     	
     	try {
     		image = ImageIO.read(getClass().getResource("/" + imgFile));
+    		currPic = (BufferedImage)image;
     	}
     	catch(IOException e){}
     	
@@ -81,6 +84,7 @@ public class Main {
 	                img = ImageIO.read(new File(imgFile));
 	            } catch (IOException c) {}
 	            label.setIcon(new ImageIcon(img));
+	            currPic = img;
 			}
 			imgPanel.setVisible(true);
 			frame.pack();
@@ -89,7 +93,8 @@ public class Main {
 	
 	private class EmojiListener implements ActionListener{
 		public void actionPerformed(ActionEvent e){
-			emojify(new BufferedImage(label.getIcon()), 10, 10);
+			label.setIcon(new ImageIcon(ImageConstructor.emojify(currPic, 10, 10)));
+			frame.pack();
 		}
 	}
 	
