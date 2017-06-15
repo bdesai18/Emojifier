@@ -9,8 +9,8 @@ public class ImageConstructor {
 
     public static BufferedImage emojify(BufferedImage picture, int eWidth, int eHeight) {
 
-        BufferedImage b = new BufferedImage(eWidth * Emojifier.EMOJI_SIZE,
-                eHeight * Emojifier.EMOJI_SIZE, BufferedImage.TYPE_INT_ARGB);
+        BufferedImage b = new BufferedImage(picture.getWidth() / eWidth * Emojifier.EMOJI_SIZE,
+                picture.getHeight() / eHeight * Emojifier.EMOJI_SIZE, BufferedImage.TYPE_INT_ARGB);
 
         ColorProcessor cp = new ColorProcessor(new Picture2(picture));
         double rectW = (double)(picture.getWidth()) / eWidth;
@@ -26,7 +26,9 @@ public class ImageConstructor {
                 Picture2 emoji = new Picture2("Emojis//EmojiOne_3.0_128x128_png/" + e);
                 for(int i = 0; i < emoji.getWidth(); i++) {
                     for(int j = 0; j < emoji.getHeight(); j++) {
-                        b.setRGB(xL + i, yU + j, c.getRGB());
+                        Pixel2 p = emoji.getPixel(j, i);
+                        Color col = new Color(p.getRed(), p.getGreen(), p.getBlue());
+                        b.setRGB(w * emoji.getWidth() + i, h * emoji.getHeight() + j, col.getRGB());
                     }
                 }
             }

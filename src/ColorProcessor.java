@@ -65,12 +65,17 @@ public class ColorProcessor {
 				int r = (argb>>16)&0xFF;
 				int g = (argb>>8)&0xFF;
 				int b = (argb)&0xFF;
-				if(a != 255 || r != 0 || g != 0 || b != 0) {
+				if(a == 255 && r == 0 && g == 0 && b == 0) {
+					rTot += 255;
+					gTot += 255;
+					bTot += 255;
+				}
+				else {
 					rTot += (argb>>16)&0xFF;
 					gTot += (argb>>8)&0xFF;
 					bTot += (argb)&0xFF;
-					totAdd++;
 				}
+				totAdd++;
 			}
 		}
 		return new Color(rTot / totAdd, gTot / totAdd, bTot / totAdd);
