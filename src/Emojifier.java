@@ -1,12 +1,13 @@
 package src;
 
 import java.awt.Color;
-import java.io.File;
+import java.io.*;
 
 
 public class Emojifier {
 	
 	public static final int EMOJI_SIZE = 128;
+	public static final int EMOJI_NUMBER = 2427;
 
 	private static Emoji[] emojis128, emojis64, emojis32;
 	
@@ -126,7 +127,7 @@ public class Emojifier {
     public static Emoji[] arrayOfEmojis128() {
 
 	    if(emojis128 == null) {
-            emojis128 = new Emoji[2427];
+            emojis128 = new Emoji[EMOJI_NUMBER];
             String dir = "Emojis//EmojiOne_3.0_128x128_png";
             File fi = new File(dir);
             File[] imgs = fi.listFiles();
@@ -142,7 +143,7 @@ public class Emojifier {
     public static Emoji[] arrayOfEmojis64() {
 
         if(emojis64 == null) {
-            emojis64 = new Emoji[2427];
+            emojis64 = new Emoji[EMOJI_NUMBER];
             String dir = "Emojis//EmojiOne_3.0_64x64_png";
             File fi = new File(dir);
             File[] imgs = fi.listFiles();
@@ -158,7 +159,7 @@ public class Emojifier {
     public static Emoji[] arrayOfEmojis32() {
 
         if(emojis32 == null) {
-            emojis32 = new Emoji[2427];
+            emojis32 = new Emoji[EMOJI_NUMBER];
             String dir = "Emojis//EmojiOne_3.0_32x32_png";
             File fi = new File(dir);
             File[] imgs = fi.listFiles();
@@ -171,6 +172,103 @@ public class Emojifier {
         }
         return emojis32;
     }
+
+    public static void readFromFiles() {
+	    BufferedReader bw128 = null, bw64 = null, bw32 = null;
+	    try {
+            try {
+                bw128 = new BufferedReader(new FileReader("128x128_colors.txt"));
+                bw64 = new BufferedReader(new FileReader("64x64_colors.txt"));
+                bw32 = new BufferedReader(new FileReader("32x32_colors.txt"));
+                if (emojis32 == null) {
+                    emojis32 = new Emoji[EMOJI_NUMBER];
+                    int count = 0;
+                    while (bw32.ready()) {
+                        String emData = bw32.readLine();
+                        String name = emData.substring(0, emData.indexOf(" "));
+                        String colors = emData.substring(emData.indexOf(" ") + 1);
+                        String[] colorData = colors.split(" ");
+                        emojis32[count] = new Emoji(name, Integer.parseInt(colorData[0]),
+                                Integer.parseInt(colorData[1]), Integer.parseInt(colorData[2]));
+                        count++;
+                    }
+                }
+                if (emojis64 == null) {
+                    emojis64 = new Emoji[EMOJI_NUMBER];
+                    int count = 0;
+                    while (bw64.ready()) {
+                        String emData = bw64.readLine();
+                        String name = emData.substring(0, emData.indexOf(" "));
+                        String colors = emData.substring(emData.indexOf(" ") + 1);
+                        String[] colorData = colors.split(" ");
+                        emojis64[count] = new Emoji(name, Integer.parseInt(colorData[0]),
+                                Integer.parseInt(colorData[1]), Integer.parseInt(colorData[2]));
+                        count++;
+                    }
+                }
+                if (emojis128 == null) {
+                    emojis128 = new Emoji[EMOJI_NUMBER];
+                    int count = 0;
+                    while (bw128.ready()) {
+                        String emData = bw128.readLine();
+                        String name = emData.substring(0, emData.indexOf(" "));
+                        String colors = emData.substring(emData.indexOf(" ") + 1);
+                        String[] colorData = colors.split(" ");
+                        emojis128[count] = new Emoji(name, Integer.parseInt(colorData[0]),
+                                Integer.parseInt(colorData[1]), Integer.parseInt(colorData[2]));
+                        count++;
+                    }
+                }
+
+            } catch (FileNotFoundException f) {
+
+            }
+        } catch (IOException e) {
+
+        } finally {
+	        try {
+	            bw32.close();
+	            bw64.close();
+	            bw128.close();
+            } catch (IOException i) {
+            }
+        }
+    }
+
+    public static void writeToFiles() {
+        BufferedWriter bw128 = null, bw64 = null, bw32 = null;
+        try {
+            bw128 = new BufferedWriter(new FileWriter("128x128_colors.txt"));
+            bw64 = new BufferedWriter(new FileWriter("64x64_colors.txt"));
+            bw32 = new BufferedWriter(new FileWriter("32x32_colors.txt"));
+
+            arrayOfEmojis32();
+            arrayOfEmojis64();
+            arrayOfEmojis128();
+
+            for(Emoji e:emojis128) {
+                bw128.write(e.name + " " + e.red + " " + e.green + " " + e.blue + "\n");
+            }
+            for(Emoji e:emojis64) {
+                bw64.write(e.name + " " + e.red + " " + e.green + " " + e.blue + "\n");
+            }
+            for(Emoji e:emojis32) {
+                bw32.write(e.name + " " + e.red + " " + e.green + " " + e.blue + "\n");
+            }
+
+        } catch (IOException io) {
+
+        } finally {
+            try {
+                bw32.close();
+                bw64.close();
+                bw128.close();
+            } catch (IOException e) {
+
+            }
+        }
+    }
+
 
     public static String findClosestArrayStyle(int r, int g, int b, int dir) {
         Emoji[] em = arrayOfEmojis128();

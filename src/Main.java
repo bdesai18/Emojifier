@@ -19,6 +19,7 @@ public class Main {
 	JPanel imgPanel;
 	JFrame frame;
 	JLabel label;
+	String imgName;
 	
 	BufferedImage currPic;
 
@@ -26,7 +27,8 @@ public class Main {
     public Main(){
     	frame = new JFrame("Emojifier");
     	frame.setLayout(new BorderLayout());
-    	
+
+    	Emojifier.readFromFiles();
     	//I/O components
     	this.ioPanel = new JPanel(new GridLayout(1,4));
     	JButton loadButton = new JButton("Load");
@@ -83,7 +85,7 @@ public class Main {
 				Graphics g = bi.createGraphics();
 				ii.paintIcon(null, g, 0,0);
 				g.dispose();
-				ImageIO.write(bi, "png", new File("output.png"));
+				ImageIO.write(bi, "png", new File(imgName.substring(0, imgName.length() - 4) + "_Emojified.png"));
 			}
 			catch (IOException io) {
 
@@ -98,6 +100,7 @@ public class Main {
 			if (returnVal == JFileChooser.APPROVE_OPTION) {
 	            File file = fc.getSelectedFile();
 	            imgFile = file.toString();
+	            imgName = imgFile;
 	            BufferedImage img = null;
 	            try {
 	                img = ImageIO.read(new File(imgFile));
