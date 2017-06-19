@@ -61,6 +61,7 @@ public class Main {
     	clearButton.addActionListener(new ClearListener());
     	loadButton.addActionListener(new LoadListener());
     	emojifyButton.addActionListener(new EmojiListener());
+    	saveButton.addActionListener(new SaveListener());
     }
     
 
@@ -71,6 +72,22 @@ public class Main {
 	private class ClearListener implements ActionListener{
 		public void actionPerformed(ActionEvent e){
 			imgPanel.setVisible(false);
+		}
+	}
+
+	private class SaveListener implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			try {
+				ImageIcon ii = (ImageIcon)label.getIcon();
+				BufferedImage bi = new BufferedImage(ii.getIconWidth(), ii.getIconHeight(), BufferedImage.TYPE_INT_RGB);
+				Graphics g = bi.createGraphics();
+				ii.paintIcon(null, g, 0,0);
+				g.dispose();
+				ImageIO.write(bi, "png", new File("output.png"));
+			}
+			catch (IOException io) {
+
+			}
 		}
 	}
 	
@@ -95,7 +112,7 @@ public class Main {
 	
 	private class EmojiListener implements ActionListener{
 		public void actionPerformed(ActionEvent e){
-			label.setIcon(new ImageIcon(ImageConstructor.emojify(currPic, 8, 8)));
+			label.setIcon(new ImageIcon(ImageConstructor.getScaledImage(currPic, 128, 128)));
 			frame.pack();
 		}
 	}

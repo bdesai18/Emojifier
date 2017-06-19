@@ -41,7 +41,8 @@ public class ColorProcessor {
 
 	private void validateRectangleCoordinates(int xL, int yU, int w, int h) {
 	    if (xL < 0 || xL + w > width || w <= 0 || yU < 0 || yU + h > height || h <= 0) {
-	        throw new IllegalArgumentException("Rectangle out of bounds");
+	    	System.out.println("haha jackass " + xL + " " + yU + " " + w + " " + h);
+			throw new IllegalArgumentException("Rectangle out of bounds");
         }
 
 
@@ -51,8 +52,6 @@ public class ColorProcessor {
 	public Color getRectangleColor(int xL, int yU, int wid, int hig) {
 
 	    validateRectangleCoordinates(xL, yU, wid, hig);
-
-
 		int rTot = 0;
 		int gTot = 0;
 		int bTot = 0;
@@ -65,7 +64,7 @@ public class ColorProcessor {
 				int r = (argb>>16)&0xFF;
 				int g = (argb>>8)&0xFF;
 				int b = (argb)&0xFF;
-				if(a == 255 && r == 0 && g == 0 && b == 0) {
+				if(a == 0) {
 					rTot += 255;
 					gTot += 255;
 					bTot += 255;

@@ -8,7 +8,7 @@ public class Emojifier {
 	
 	public static final int EMOJI_SIZE = 128;
 
-	private static Emoji[] emojis;
+	private static Emoji[] emojis128, emojis64, emojis32;
 	
 	public static EmojiTree treeOfEmojis() {
         String dir = "Emojis//EmojiOne_3.0_128x128_png";
@@ -123,10 +123,10 @@ public class Emojifier {
         }
     }
 
-    public static Emoji[] arrayOfEmojis() {
+    public static Emoji[] arrayOfEmojis128() {
 
-	    if(emojis == null) {
-            emojis = new Emoji[2427];
+	    if(emojis128 == null) {
+            emojis128 = new Emoji[2427];
             String dir = "Emojis//EmojiOne_3.0_128x128_png";
             File fi = new File(dir);
             File[] imgs = fi.listFiles();
@@ -134,14 +134,51 @@ public class Emojifier {
                 ColorProcessor cp = new ColorProcessor(new Picture2(dir + "//" + imgs[i].getName()));
                 Color c = cp.getRectangleColor(0, 0, EMOJI_SIZE, EMOJI_SIZE);
                 Emoji e = new Emoji(imgs[i].getName(), c.getRed(), c.getGreen(), c.getBlue());
-                emojis[i] = e;
+                emojis128[i] = e;
             }
         }
-        return emojis;
+        return emojis128;
+    }
+    public static Emoji[] arrayOfEmojis64() {
+
+        if(emojis64 == null) {
+            emojis64 = new Emoji[2427];
+            String dir = "Emojis//EmojiOne_3.0_64x64_png";
+            File fi = new File(dir);
+            File[] imgs = fi.listFiles();
+            for(int i = 0; i < imgs.length; i++) {
+                ColorProcessor cp = new ColorProcessor(new Picture2(dir + "//" + imgs[i].getName()));
+                Color c = cp.getRectangleColor(0, 0, EMOJI_SIZE / 2, EMOJI_SIZE / 2);
+                Emoji e = new Emoji(imgs[i].getName(), c.getRed(), c.getGreen(), c.getBlue());
+                emojis64[i] = e;
+            }
+        }
+        return emojis64;
+    }
+    public static Emoji[] arrayOfEmojis32() {
+
+        if(emojis32 == null) {
+            emojis32 = new Emoji[2427];
+            String dir = "Emojis//EmojiOne_3.0_32x32_png";
+            File fi = new File(dir);
+            File[] imgs = fi.listFiles();
+            for(int i = 0; i < imgs.length; i++) {
+                ColorProcessor cp = new ColorProcessor(new Picture2(dir + "//" + imgs[i].getName()));
+                Color c = cp.getRectangleColor(0, 0, EMOJI_SIZE / 4, EMOJI_SIZE / 4);
+                Emoji e = new Emoji(imgs[i].getName(), c.getRed(), c.getGreen(), c.getBlue());
+                emojis32[i] = e;
+            }
+        }
+        return emojis32;
     }
 
-    public static String findClosestArrayStyle(int r, int g, int b) {
-        Emoji[] em = arrayOfEmojis();
+    public static String findClosestArrayStyle(int r, int g, int b, int dir) {
+        Emoji[] em = arrayOfEmojis128();
+	    if (dir == 64)
+	        em = arrayOfEmojis64();
+	    else if (dir == 32) {
+	        em = arrayOfEmojis32();
+        }
         double minD = Double.MAX_VALUE;
         int ind = 0;
         for (int i = 0; i < em.length; i++) {
@@ -163,9 +200,9 @@ public class Emojifier {
         Color x = c.getRectangleColor(0, 0, 1600, 1200);
         Color x1 = c1.getRectangleColor(0, 0, 128, 128);
         System.out.println("summer nights.png's color is " + x.getRed() + " " + x.getGreen() + " " + x.getBlue());
-        findClosestArrayStyle(x.getRed(), x.getGreen(), x.getBlue());
+        findClosestArrayStyle(x.getRed(), x.getGreen(), x.getBlue(), 128);
         System.out.println("test.png's color is " + x1.getRed() + " " + x1.getGreen() + " " + x1.getBlue());
-        findClosestArrayStyle(x1.getRed(), x1.getGreen(), x1.getBlue());
+        findClosestArrayStyle(x1.getRed(), x1.getGreen(), x1.getBlue(), 128);
     }
 
 
